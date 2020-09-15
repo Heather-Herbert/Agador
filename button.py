@@ -1,5 +1,3 @@
-import speech_recognition as sr
-import os
 import wx
 import wx.adv
 
@@ -22,6 +20,8 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
 
     def CreatePopupMenu(self):
         menu = wx.Menu()
+        create_menu_item(menu, 'Say Hello', self.on_hello)
+        menu.AppendSeparator()
         create_menu_item(menu, 'Exit', self.on_exit)
         return menu
 
@@ -30,13 +30,10 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         self.SetIcon(icon, TRAY_TOOLTIP)
 
     def on_left_down(self, event):
-        r = sr.Recognizer()
-        mic = sr.Microphone()
+        print ('Tray icon was left-clicked.')
 
-        with mic as source:
-            r.adjust_for_ambient_noise(source)
-            audio = r.listen(source)
-            print(r.recognize_google(audio))
+    def on_hello(self, event):
+        print ('Hello, world!')
 
     def on_exit(self, event):
         self.myapp_frame.Close()
@@ -63,4 +60,3 @@ if __name__ == "__main__":
     MyApp = wx.App()
     My_Application()
     MyApp.MainLoop()
-
