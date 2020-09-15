@@ -1,9 +1,10 @@
 import speech_recognition as sr
 import os
+import urllib.parse
 import wx
 import wx.adv
 
-TRAY_TOOLTIP = 'System Tray Demo'
+TRAY_TOOLTIP = 'Agador'
 TRAY_ICON = 'img/agador.ico'
 
 def create_menu_item(menu, label, func):
@@ -36,21 +37,19 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         with mic as source:
             r.adjust_for_ambient_noise(source)
             audio = r.listen(source)
-            print(r.recognize_google(audio))
+            os.system("xdg-open https://duckduckgo.com/?q=" + urllib.parse.quote(r.recognize_google(audio)))
 
     def on_exit(self, event):
         self.myapp_frame.Close()
 
 class My_Application(wx.Frame):
 
-    #----------------------------------------------------------------------
     def __init__(self):
         wx.Frame.__init__(self, None, wx.ID_ANY, "", size=(1,1))
         panel = wx.Panel(self)
         self.myapp = TaskBarIcon(self)
         self.Bind(wx.EVT_CLOSE, self.onClose)
 
-    #----------------------------------------------------------------------
     def onClose(self, evt):
         """
         Destroy the taskbar icon and the frame
