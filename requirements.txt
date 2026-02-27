@@ -20,7 +20,7 @@ httpx==0.28.1
 idna==3.10
 numpy==2.2.4
 opencv-python==4.11.0.86
-pillow==11.2.1
+pillow==12.1.1
 proto-plus==1.26.1
 protobuf==5.29.4
 pyasn1==0.6.1
